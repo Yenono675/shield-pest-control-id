@@ -1,7 +1,7 @@
 import { Users } from "lucide-react";
 
 const teamMembers = [
-  {
+ {
     name: "Ricky Wicaksono,SE",
     role: "Owner/Boss",
     description: "Pendiri dan pemimpin Shield Pest Control dengan pengalaman lebih dari 15 tahun di industri pembasmi hama",

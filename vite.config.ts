@@ -5,7 +5,10 @@ import path from "node:path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  // Kita cuma pakai plugin yang bener-bener dibutuhin buat React & Tailwind
+  // TAMBAHKAN BARIS INI:
+  base: '/',
+  
+  // Plugin yang dibutuhin buat React & Tailwind
   plugins: [react(), tailwindcss(), jsxLocPlugin()],
   resolve: {
     alias: {
@@ -23,7 +26,6 @@ export default defineConfig({
   },
   server: {
     host: true,
-    // Hapus semua domain .manus.computer biar nggak "lapor" keluar
     allowedHosts: ["localhost", "127.0.0.1"],
     fs: {
       strict: true,

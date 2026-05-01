@@ -11,7 +11,7 @@ export default function Footer() {
          <div className="md:col-span-1">
   <div className="mb-6">
     <img 
-      src="/image/logo.jpeg" 
+      src="/image/logo.jpeg"
       alt="Shield Logo" 
       className="h-16 w-auto object-contain mb-4" 
     />

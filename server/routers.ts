@@ -1,21 +1,21 @@
+import { GoogleGenerativeAI } from "@google/generative-ai"; 
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { invokeLLM } from "./_core/llm";
+
+// Inisialisasi Google AI menggunakan API Key dari .env
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 export const appRouter = router({
-  // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
   auth: router({
-    me: publicProcedure.query(opts => opts.ctx.user),
+    me: publicProcedure.query((opts) => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
-      return {
-        success: true,
-      } as const;
+      return { success: true } as const;
     }),
   }),
 
@@ -28,50 +28,48 @@ export const appRouter = router({
       )
       .mutation(async ({ input }) => {
         try {
-          const systemPrompt = `Anda adalah asisten customer service Shield Pest Control Surabaya yang ahli dalam pembasmi hama.
-Anda harus menjawab semua pertanyaan dalam Bahasa Indonesia dengan ramah dan profesional.
-
-Informasi tentang Shield Pest Control:
-- Nama: Shield Pest Control Surabaya
-- Slogan: "SCAN IN AJA TUNTAS MELINDUNGI"
-- WhatsApp: 0811-3513-799
-- Instagram: @shieldpestcontrol.surabaya
-- Layanan: Fogging Nyamuk, Anti Rayap, Pembasmi Tikus, Disinfektan, Pembasmi Semut/Lalat/Kecoa, Konsultasi & Survey Gratis
-- Area Layanan: Surabaya Raya
-- Izin: Dinas Kesehatan Kota Surabaya
-- Owner: Ricky Wicaksono
-
-Jika ditanya tentang layanan spesifik, jelaskan dengan detail dan profesional.
-Jika pertanyaan di luar topik, arahkan ke layanan kami atau sarankan hubungi WhatsApp.
-Selalu berikan nomor WhatsApp 0811-3513-799 untuk konsultasi lebih lanjut.`;
-
-          const response = await invokeLLM({
-            messages: [
-              {
-                role: "system",
-                content: systemPrompt,
-              },
-              {
-                role: "user",
-                content: input.question,
-              },
-            ],
+          // Menggunakan model Gemini 2.0 Flash agar cepat dan responsif
+          const model = genAI.getGenerativeModel({ 
+          model: "gemini-3-flash-preview", 
+          generationConfig: {
+            temperature: 0.5, // Ini yang bikin AI-nya lebih luwes & nggak kaku
+            topP: 0.95,
+          }
           });
 
-          const answer =
-            response.choices[0]?.message?.content ||
-            "Maaf, saya tidak dapat memproses pertanyaan Anda saat ini. Silakan hubungi kami melalui WhatsApp: 0811-3513-799";
+          const systemPrompt = `
+          Anda adalah asisten chat dari Shield Pest Control Surabaya yang ramah, solutif, dan asik diajak ngobrol. 
+         Slogan: SCAN IN AJA TUNTAS MELINDUNGI.
+
+        GAYA BICARA:
+        - Singkat, padat, dan jelas. Maksimal 2-3 kalimat saja per jawaban.
+        - JANGAN bertele-tele atau curhat. 
+        - Gunakan bahasa yang santai tapi profesional (panggil "Kak").
+        - JANGAN pakai poin-poin panjang.
+
+        KONTEKS LAYANAN:
+        - Fokus pada: Rayap, Fogging Nyamuk, Tikus, Kecoa, dan Semut.
+        - Lokasi: Surabaya dan sekitarnya.
+        - Penawaran Utama: Konsultasi & Survey GRATIS.
+
+        INSTRUKSI WAJIB:
+        1. Jika ditanya soal harga atau mau pesan, langsung arahkan dengan luwes ke WhatsApp: 0811-3513-799.
+        2. Contoh jawaban: "Wah kalau soal rayap di lemari, emang mending segera dicek Kak biar nggak merembet. Tim Shield bisa bantu survey gratis kok ke lokasi. Langsung aja chat admin di WA 0811-3513-799 ya biar dijadwalkan!"
+         `.trim();
+
+          const result = await model.generateContent(`${systemPrompt}\n\nUser: ${input.question}`);
+          const response = await result.response;
+          const answer = response.text();
 
           return {
-            answer,
             success: true,
+            answer: answer.trim(),
           };
         } catch (error) {
-          console.error("Chatbot error:", error);
+          console.error("Gemini Error:", error);
           return {
-            answer:
-              "Maaf, terjadi kesalahan. Silakan hubungi kami melalui WhatsApp: 0811-3513-799",
             success: false,
+            answer: "Waduh, otak saya lagi loading. Langsung chat WhatsApp admin aja yuk di 0811-3513-799!",
           };
         }
       }),
