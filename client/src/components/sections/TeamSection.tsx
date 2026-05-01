@@ -17,7 +17,7 @@ const teamMembers = [
     name: "Layanan Pelanggan",
     role: "Customer Support",
     description: "Tim responsif yang siap membantu Anda 24/7 untuk konsultasi dan pertanyaan seputar layanan kami",
-    image: "/image/service.jpeg",
+    image: "/image/layanan.jpeg",
   },
 ];
 

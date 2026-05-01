@@ -50,7 +50,7 @@ export default function AboutSection() {
             {/* Company Slogan */}
             <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-6 rounded-xl mb-8">
               <p className="text-center text-2xl font-bold italic">
-                "SCAN IN AJA TUNTAS MELINDUNGI"
+                #TUNTAS MELINDUNGI!
               </p>
               <p className="text-center text-sm mt-2 text-orange-100">
                 Komitmen kami untuk perlindungan hama yang menyeluruh dan terpercaya

@@ -23,9 +23,6 @@ export default function Footer() {
   <p className="text-sm text-gray-400 leading-relaxed mb-4">
     Layanan pembasmi hama profesional dengan izin operasional dari Dinas Kesehatan Kota Surabaya.
   </p>
-  <p className="text-xs text-orange-500 font-black italic tracking-tight">
-    "SCAN IN AJA TUNTAS MELINDUNGI"
-  </p>
 </div>
           {/* Services */}
           <div>

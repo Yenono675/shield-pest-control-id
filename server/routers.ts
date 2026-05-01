@@ -39,7 +39,7 @@ export const appRouter = router({
 
           const systemPrompt = `
           Anda adalah asisten chat dari Shield Pest Control Surabaya yang ramah, solutif, dan asik diajak ngobrol. 
-         Slogan: SCAN IN AJA TUNTAS MELINDUNGI.
+        
 
         GAYA BICARA:
         - Singkat, padat, dan jelas. Maksimal 2-3 kalimat saja per jawaban.
