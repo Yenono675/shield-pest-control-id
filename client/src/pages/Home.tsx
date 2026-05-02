@@ -12,6 +12,9 @@ export default function Home() {
 
   return (
     <div className="w-full">
+      {/* About Section */}
+      <AboutSection />
+      
       {/* Hero Section */}
       <HeroSection />
 
@@ -20,9 +23,6 @@ export default function Home() {
 
       {/* Team Section */}
       <TeamSection />
-
-      {/* About Section */}
-      <AboutSection />
 
       {/* Chatbot Section */}
       {showChatbot && <ChatbotSection onClose={() => setShowChatbot(false)} />}

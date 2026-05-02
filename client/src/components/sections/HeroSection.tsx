@@ -1,25 +1,24 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const heroSlides = [
   {
     title: "Perlindungan Hama Terpercaya",
     subtitle: "Layanan pembasmi hama profesional untuk rumah dan bisnis Anda",
     cta: "Konsultasi Gratis",
-    image: "bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600",
+    image: "/image/tikus.jpeg",
   },
   {
     title: "Fogging Nyamuk Berkualitas",
     subtitle: "Teknologi terkini untuk memberantas nyamuk dan penyakit yang dibawanya",
     cta: "Pesan Sekarang",
-    image: "bg-gradient-to-br from-orange-500 via-orange-600 to-red-600",
+    image: "/image/nyamuk.jpeg",
   },
   {
     title: "Anti Rayap Profesional",
     subtitle: "Cegah kerusakan bangunan dengan layanan anti rayap terbaik",
     cta: "Hubungi Kami",
-    image: "bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600",
+    image: "/image/rayap.jpeg",
   },
 ];
 
@@ -34,7 +33,8 @@ export default function HeroSection() {
   }, []);
 
   const slide = heroSlides[currentSlide];
-  const whatsappLink = "https://wa.me/628113513799?text=Halo%20Shield%20Pest%20Control%2C%20saya%20butuh%20bantuan%20pembasmi%20hama.%20Bisa%20jadwalkan%20survei%20ke%20lokasi?"
+  const whatsappLink = "https://wa.me/628113513799?text=Halo%20Shield%20Pest%20Control%2C%20saya%20butuh%20bantuan%20pembasmi%20hama.%20Bisa%20jadwalkan%20survei%20ke%20lokasi?";
+
   return (
     <section id="hero" className="relative w-full overflow-hidden">
       {/* Animated Background Slides */}
@@ -42,14 +42,14 @@ export default function HeroSection() {
         {heroSlides.map((s, idx) => (
           <div
             key={idx}
-            className={`absolute inset-0 ${s.image} transition-opacity duration-1000 ${
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
               idx === currentSlide ? "opacity-100" : "opacity-0"
             }`}
+            style={{ 
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${s.image})` 
+            }}
           />
         ))}
-
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/40" />
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
@@ -86,7 +86,7 @@ export default function HeroSection() {
         </div>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
           {heroSlides.map((_, idx) => (
             <button
               key={idx}

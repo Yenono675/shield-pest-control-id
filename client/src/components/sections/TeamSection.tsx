@@ -10,7 +10,7 @@ const teamMembers = [
   {
     name: "Layanan Pelanggan",
     role: "Customer Support",
-    description: "Tim responsif yang siap membantu Anda 24/7 untuk konsultasi dan pertanyaan seputar layanan kami",
+    description: "Tim responsif yang siap membantu Anda untuk konsultasi dan pertanyaan seputar layanan kami",
     image: "/image/oren.jpeg",
   }
 ];
@@ -81,7 +81,7 @@ export default function TeamSection() {
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Bersertifikat & Berlisensi</p>
-                <p className="text-sm text-gray-600">Izin operasional dari Dinas Kesehatan Kota Surabaya</p>
+                <p className="text-sm text-gray-600">Perusahaan memiliki izin operasional dari Dinas Kesehatan Kota Surabaya</p>
               </div>
             </div>
             <div className="flex gap-3">
@@ -89,8 +89,8 @@ export default function TeamSection() {
                 <span className="text-white text-sm font-bold">✓</span>
               </div>
               <div>
-                <p className="font-semibold text-gray-900">Teknologi Terkini</p>
-                <p className="text-sm text-gray-600">Menggunakan peralatan dan bahan berkualitas tinggi</p>
+                <p className="font-semibold text-gray-900">Produk Chemical yang berizin</p>
+                <p className="text-sm text-gray-600">Menggunakan chemical yg aman dan sesuai untuk hama pemukiman</p>
               </div>
             </div>
             <div className="flex gap-3">
@@ -99,7 +99,7 @@ export default function TeamSection() {
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Harga Kompetitif</p>
-                <p className="text-sm text-gray-600">Konsultasi dan survey gratis untuk area Surabaya Raya</p>
+                <p className="text-sm text-gray-600">Harga sesuai kualitas yang ditawarkan, Konsultasi dan survey gratis untuk area Surabaya Raya</p>
               </div>
             </div>
             <div className="flex gap-3">
@@ -109,6 +109,15 @@ export default function TeamSection() {
               <div>
                 <p className="font-semibold text-gray-900">Layanan Responsif</p>
                 <p className="text-sm text-gray-600">Siap membantu Anda kapan saja dengan solusi terbaik</p>
+              </div>
+            </div>
+             <div className="flex gap-3">
+              <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span className="text-white text-sm font-bold">✓</span>
+              </div>
+              <div>
+                <p className="font-semibold text-gray-900">Garansi Anti Rayap Bersertifikat</p>
+                <p className="text-sm text-gray-600">Setiap layanan anti rayap kami disertai sertifikat garansi</p>
               </div>
             </div>
           </div>

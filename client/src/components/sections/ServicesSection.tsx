@@ -2,7 +2,7 @@ import { Zap, Bug, Mouse, Droplet, Bug as BugIcon, Phone } from "lucide-react";
 
 const services = [
   {
-    icon: Zap,
+    icon: () => <span className="text-2xl">🦟</span>,
     title: "Fogging Nyamuk",
     description: "Layanan fogging profesional untuk memberantas nyamuk dan mencegah penyakit yang dibawanya",
     color: "from-orange-400 to-orange-500",
