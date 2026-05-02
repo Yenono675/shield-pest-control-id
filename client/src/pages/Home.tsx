@@ -12,11 +12,11 @@ export default function Home() {
 
   return (
     <div className="w-full">
-      {/* About Section */}
-      <AboutSection />
-      
       {/* Hero Section */}
       <HeroSection />
+
+      {/* About Section */}
+      <AboutSection />
 
       {/* Services Section */}
       <ServicesSection />
