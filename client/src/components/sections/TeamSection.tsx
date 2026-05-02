@@ -2,12 +2,6 @@ import { Users } from "lucide-react";
 
 const teamMembers = [
  {
-    name: "Ricky Wicaksono,SE",
-    role: "Owner/Boss",
-    description: "Pendiri dan pemimpin Shield Pest Control dengan pengalaman lebih dari 15 tahun di industri pembasmi hama",
-    image: "/image/ricky.jpeg",
-  },
-  {
     name: "Tim Profesional",
     role: "Teknisi Berpengalaman",
     description: "Teknisi berpengalaman dan terlatih dalam menangani berbagai jenis hama dengan standar keselamatan tertinggi",
@@ -18,7 +12,7 @@ const teamMembers = [
     role: "Customer Support",
     description: "Tim responsif yang siap membantu Anda 24/7 untuk konsultasi dan pertanyaan seputar layanan kami",
     image: "/image/layanan.jpeg",
-  },
+  }
 ];
 
 export default function TeamSection() {
