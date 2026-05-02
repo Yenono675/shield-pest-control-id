@@ -33,18 +33,18 @@ export default function TeamSection() {
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {teamMembers.map((member, idx) => (
-            <div
-              key={idx}
-              className="group bg-gray-50 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+        <div className="flex flex-wrap justify-center gap-8">
+         {teamMembers.map((member, idx) => (
+         <div
+          key={idx}
+          className="group bg-gray-50 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 w-full md:w-[calc(33.333%-2rem)] min-w-[300px]"
             >
               {/* Image */}
-              <div className="relative h-64 overflow-hidden bg-gradient-to-br from-orange-400 to-orange-600">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+             <div className="relative h-64 overflow-hidden bg-gradient-to-br from-orange-400 to-orange-600">
+              <img
+               src={member.image}
+               alt={member.name}
+               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300" />
