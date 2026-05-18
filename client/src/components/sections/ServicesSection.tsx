@@ -1,8 +1,8 @@
 import { Bug, Mouse, Droplet, Phone } from "lucide-react";
 import { useState } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
+import { ShieldDialog } from "../ShieldDialog";
 
 // 1. Fungsi Ledakan (Di luar komponen)
 const handleExplosion = () => {
@@ -47,13 +47,14 @@ const services = [
     description: "Layanan fogging profesional untuk memberantas nyamuk dan mencegah penyakit yang dibawanya",
     color: "from-orange-400 to-orange-500",
     images: ["/image/fogging2.jpeg"],
-    detail: " Teknik pengendalian hama dapat dilakukan melalui dua metode utama, yaitu spraying dan fogging, yang masing-masing memiliki fungsi spesifik sesuai dengan kondisi lapangan. Spraying merupakan metode penyemprotan larutan insektisida ke permukaan area tertentu menggunakan alat seperti power sprayer, hand sprayer, atau mist blower untuk membasmi hama merayap melalui efek residu yang ditinggalkan. Sementara itu, fogging adalah sistem pengasapan tebal yang bersifat sistemik dan residual, dirancang khusus untuk menjangkau celah-celah sempit serta membasmi hama terbang secara massal dengan cara menyebarkan partikel insektisida ke udara dalam bentuk kabut. Kombinasi kedua teknik ini memastikan perlindungan yang menyeluruh, baik pada permukaan benda maupun di seluruh ruang udara pada area yang diproteksi."
+    detail: "Teknik pengendalian hama dapat dilakukan melalui dua metode utama, yaitu spraying dan fogging, yang masing-masing memiliki fungsi spesifik sesuai dengan kondisi lapangan. Spraying merupakan metode penyemprotan larutan insektisida ke permukaan area tertentu menggunakan alat seperti power sprayer, hand sprayer, atau mist blower untuk membasmi hama merayap melalui efek residu yang ditinggalkan. Sementara itu, fogging adalah sistem pengasapan tebal yang bersifat sistemik dan residual, dirancang khusus untuk menjangkau celah-celah sempit serta membasmi hama terbang secara massal dengan cara menyebarkan partikel insektisida ke udara dalam bentuk kabut. Kombinasi kedua teknik ini memastikan perlindungan yang menyeluruh, baik pada permukaan benda maupun di seluruh ruang udara pada area yang diproteksi."
   },
   {
     icon: Bug,
     title: "Anti Rayap",
     description: "Perlindungan komprehensif untuk mencegah kerusakan bangunan akibat rayap",
     color: "from-orange-500 to-orange-600",
+    images: ["/image/semprot.jpeg"],
     detail: "Sistem perlindungan rayap kami mencakup metode Termite Control yang dirancang untuk perlindungan jangka panjang. Kami menggunakan teknik pengumpanan (Termite Baiting System) dan penyuntikan tanah (Soil Treatment) untuk memutus siklus hidup koloni rayap. Cairan termitisida yang digunakan memiliki efek 'transfer' di mana rayap yang terpapar akan membawa zat aktif ke sarang dan membasmi seluruh koloni termasuk ratu rayap, sehingga struktur bangunan tetap aman dari kerusakan struktural."
   },
   {
@@ -61,6 +62,7 @@ const services = [
     title: "Pembasmi Tikus",
     description: "Solusi efektif untuk mengendalikan populasi tikus di rumah dan bisnis Anda",
     color: "from-orange-600 to-red-500",
+    images: ["/image/tikus4.jpeg"],
     detail: "Pengendalian Rodent Control menggunakan strategi terpadu yang meliputi trapping (perangkap) dan baiting (umpan). Kami menggunakan umpan antikoagulan yang efektif membuat tikus mati kering tanpa meninggalkan bau menyengat di area tersembunyi. Fokus utama kami adalah menutup jalur masuk (proofing) dan pemasangan umpan strategis di titik-titik aktivitas tikus untuk memastikan area bisnis dan rumah Anda bebas dari risiko penyakit dan kerusakan instalasi kabel."
   },
   {
@@ -68,6 +70,7 @@ const services = [
     title: "Disinfektan",
     description: "Layanan disinfeksi menyeluruh untuk menjaga kebersihan dan kesehatan lingkungan",
     color: "from-red-500 to-orange-600",
+    images: ["/image/disenfektan.jpeg"],
     detail: "Layanan sterilisasi ruangan menggunakan cairan disinfektan bersertifikat yang aman bagi manusia namun ampuh membunuh virus, bakteri, dan kuman. Metode aplikasi dilakukan melalui Ultra Low Volume (ULV) Misting, yang menghasilkan partikel uap halus untuk menjangkau setiap sudut ruangan, permukaan benda, hingga sirkulasi udara di dalam gedung secara menyeluruh dan cepat kering."
   },
   {
@@ -75,6 +78,7 @@ const services = [
     title: "Pembasmi Semut/Lalat/Kecoa",
     description: "Pengendalian hama rumahan lainnya dengan metode yang aman dan efisien",
     color: "from-orange-500 to-amber-500",
+    images: ["/image/tikus3.jpeg"],
     detail: "Metode General Pest Control diaplikasikan melalui teknik pengumpanan gel (gel baiting) khusus kecoa dan semut, serta Residual Spraying untuk area yang sering dilalui hama. Kami memastikan penggunaan insektisida yang bersifat odorless (tidak berbau) sehingga tidak mengganggu aktivitas penghuni gedung, namun tetap efektif dalam mengendalikan populasi hama dalam waktu singkat."
   },
   {
@@ -82,6 +86,7 @@ const services = [
     title: "Konsultasi & Survey Gratis",
     description: "Konsultasi gratis dan survey lokasi untuk area Surabaya Raya tanpa biaya tambahan",
     color: "from-amber-500 to-orange-500",
+    images: ["/image/oren.jpeg"],
     detail: "Kami memberikan layanan inspeksi menyeluruh tanpa biaya untuk area Surabaya, Sidoarjo, dan Gresik. Tim ahli kami akan melakukan identifikasi jenis hama, tingkat serangan, serta memberikan rekomendasi solusi dan penawaran harga yang transparan langsung di lokasi Anda."
   },
 ];
@@ -128,34 +133,16 @@ export default function ServicesSection() {
           })}
         </div>
 
-        {/* Modal Dialog */}
-        <Dialog.Root open={open} onOpenChange={setOpen}>
-          <Dialog.Portal>
-            <Dialog.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[99]" />
-            <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-lg bg-white rounded-2xl p-6 sm:p-8 z-[100] shadow-2xl overflow-hidden">
-              <AnimatePresence>
-                {activeData && (
-                  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}>
-                    <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${activeData.color} flex items-center justify-center mb-6`}>
-                      <activeData.icon size={32} className="text-white" />
-                    </div>
-                    <Dialog.Title className="text-2xl font-bold mb-2">{activeData.title}</Dialog.Title>
-                    <div className="h-1 w-20 bg-orange-500 mb-6 rounded-full" />
-                    <Dialog.Description className="text-gray-600 leading-relaxed mb-8">
-                      {activeData.detail}
-                    </Dialog.Description>
-                    <button 
-                      onClick={() => setOpen(false)}
-                      className="w-full py-4 rounded-xl bg-gray-900 text-white font-bold hover:bg-black transition-colors"
-                    >
-                      Tutup Detail
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Dialog.Content>
-          </Dialog.Portal>
-        </Dialog.Root>
+        {/* Modal Dialog dengan ShieldDialog */}
+        {activeData && (
+          <ShieldDialog 
+            open={open} 
+            onOpenChange={setOpen}
+            title={activeData.title}
+            description={activeData.detail}
+            images={activeData.images}
+          />
+        )}
       </div>
     </section>
   );
